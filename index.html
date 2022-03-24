@@ -26,19 +26,46 @@
   
 
   <script>
-var apiBase = "https://query1.finance.yahoo.com/v7/finance/download/NFLX?period1=1616568190&period2=1648104190&interval=1d&events=history&includeAdjustedClose=true";
+	  var apiBase = "https://hacker-news.firebaseio.com/v0/";
 var container = document.querySelector('#latest');
 var el, title, url;
 
-
-fetch(apiBase)
+fetch(apiBase + 'topstories.json')
   .then(function(response) {
-    return response.text();
+  console.log(response.headers.values());
+    return response.json();
   })
-  .then(function(j){
-    console.log(j)
+  .then(function(json){
+    return json.slice(0,20);
+  })
+  .then(function(ids) {
+    ids.forEach(function(id, i) {
+      fetchItem(id);
+    });
+  })
+  .catch(function(err){
+    console.log(err);
   });
+
+
+function fetchItem(id) {
+  var item = apiBase + 'item/' + id + '.json';
   
+  fetch(item)
+    .then(function(response){
+      return response.json();  
+    })
+    .then(function(json){
+      title = json.title;
+      url = json.url;
+      el = document.createElement("li");
+      el.innerHTML = `<a href="${url}">${title}</a>`;
+      container.appendChild(el);
+    })
+    .catch(function(err){
+      console.log(err);  
+    });
+}
 </script>
 </body>
 </html>
