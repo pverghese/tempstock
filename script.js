@@ -1,5 +1,5 @@
 function search() {
-    var queryURL = "https://jsonplaceholder.typicode.com/users";
+    var queryURL = "https://query1.finance.yahoo.com/v7/finance/download/%5ENSEI?period1=1615891242&period2=1647427242&interval=1d&events=history&includeAdjustedClose=true";
 
     fetch(queryURL)
             .then(function (response) {
@@ -7,11 +7,11 @@ function search() {
                 // returning it will convert it 
                 // to a pure JavaScript 
                 // object for the next then's callback
-                return response.json();
+                return response.text();
             })
             .then(function (users) {
                 // users is a JavaScript object here
-                displayUsersAsATable(users);
+		console.log(users)
             })
             .catch(function (error) {
                 console.log('Error during fetch: ' + error.message);
