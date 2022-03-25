@@ -1,7 +1,7 @@
 function search() {
-    var queryURL = "https://query1.finance.yahoo.com/v7/finance/download/%5ENSEI?period1=1615891242&period2=1647427242&interval=1d&events=history&includeAdjustedClose=true";
-
-    fetch(queryURL)
+    var queryURL = "https://cors-anywhere.herokuapp.com/query1.finance.yahoo.com/v7/finance/download/NFLX?period1=1647096486&period2=1648096486&interval=1d&events=history&includeAdjustedClose=true";
+    fetch(queryURL,{
+    credentials: 'same-origin'})
             .then(function (response) {
                 // response.json() returns a json string,
                 // returning it will convert it 
